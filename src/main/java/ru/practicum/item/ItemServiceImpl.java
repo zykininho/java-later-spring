@@ -2,9 +2,11 @@ package ru.practicum.item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -12,16 +14,22 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository repository;
+    @Autowired
+    private ItemMapper itemMapper;
 
     @Override
-    public List<Item> getItems(long userId) {
-        return repository.findByUserId(userId);
+    public List<ItemDto> getItems(long userId) {
+        return repository.findByUserId(userId)
+                .stream()
+                .map(itemMapper::toItemDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Item addNewItem(long userId, Item item) {
+    public ItemDto addNewItem(long userId, ItemDto itemDto) {
+        Item item = itemMapper.toItem(itemDto);
         item.setUserId(userId);
-        return repository.save(item);
+        return itemMapper.toItemDto(repository.save(item));
     }
 
     @Override
