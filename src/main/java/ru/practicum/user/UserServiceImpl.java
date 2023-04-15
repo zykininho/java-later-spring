@@ -2,16 +2,14 @@ package ru.practicum.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 class UserServiceImpl implements UserService {
 
@@ -19,6 +17,7 @@ class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Transactional(readOnly = true)
     @Override
     public List<UserDto> getAllUsers() {
         return repository.findAll()
@@ -27,6 +26,7 @@ class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public UserDto saveUser(UserDto userDto) {
         return userMapper.toUserDto(repository.save(userMapper.toUser(userDto)));

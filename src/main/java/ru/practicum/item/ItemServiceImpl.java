@@ -3,11 +3,13 @@ package ru.practicum.item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
 
@@ -23,6 +25,7 @@ public class ItemServiceImpl implements ItemService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public ItemDto addNewItem(long userId, ItemDto itemDto) {
         Item item = itemMapper.toItem(itemDto);
@@ -30,6 +33,7 @@ public class ItemServiceImpl implements ItemService {
         return itemMapper.toItemDto(repository.save(item));
     }
 
+    @Transactional
     @Override
     public void deleteItem(long userId, long itemId) {
         repository.deleteByUserIdAndItemId(userId, itemId);
