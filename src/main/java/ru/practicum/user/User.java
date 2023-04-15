@@ -3,7 +3,6 @@ package ru.practicum.user;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import ru.practicum.enums.UserState;
 
 import javax.persistence.*;
 import java.time.Instant;

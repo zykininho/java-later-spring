@@ -3,7 +3,6 @@ package ru.practicum.user;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.enums.UserState;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
