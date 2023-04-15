@@ -18,13 +18,12 @@ public class ItemRepositoryImpl implements ItemRepository {
     public Item save(Item item) {
         item.setId(getId());
         items.compute(item.getUserId(), (userId, userItems) -> {
-            if(userItems == null) {
+            if (userItems == null) {
                 userItems = new ArrayList<>();
             }
             userItems.add(item);
             return userItems;
         });
-
         return item;
     }
 

@@ -8,11 +8,12 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.DispatcherServlet;
 
 public class LaterApplication {
+
     private static final int PORT = 8080;
 
     public static void main(String[] args) throws LifecycleException {
         Tomcat tomcat = new Tomcat();
-
+        tomcat.setSilent(true);
         // connector -- это компонент, который отвечает за "сеть"
         tomcat.getConnector().setPort(PORT);
 
@@ -22,19 +23,17 @@ public class LaterApplication {
         // создаём контекст
         AnnotationConfigWebApplicationContext applicationContext =
                 new AnnotationConfigWebApplicationContext();
-        applicationContext.setServletContext(tomcatContext.getServletContext());
         applicationContext.scan("ru.practicum");
+        applicationContext.setServletContext(tomcatContext.getServletContext());
         applicationContext.refresh();
 
         // добавляем диспетчер запросов
         DispatcherServlet dispatcherServlet = new DispatcherServlet(applicationContext);
 
         // класс Wrapper позволяет задать дополнительные настройки для сервлета
-        // Wrapper testServletWrapper = Tomcat.addServlet(tomcatContext, "testServlet", new TestServlet());
         Wrapper dispatcherWrapper = Tomcat.addServlet(tomcatContext, "dispatcher", dispatcherServlet);
 
         // addMapping() сопоставляет URL-путь с сервлетом
-        // testServletWrapper.addMapping("/test");
         dispatcherWrapper.addMapping("/");
         dispatcherWrapper.setLoadOnStartup(1);
 

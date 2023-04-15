@@ -1,16 +1,16 @@
 package ru.practicum.user;
 
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import ru.practicum.enums.UserState;
 
 import javax.persistence.*;
 import java.time.Instant;
 
-@Slf4j
-@Data
 @Entity
 @Table(name = "users", schema = "public")
+@Getter @Setter @ToString
 public class User {
 
     @Id
@@ -30,5 +30,17 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserState state;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        return id != null && id.equals(((User) o).getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 
 }

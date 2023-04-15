@@ -1,14 +1,12 @@
 package ru.practicum.item;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
@@ -36,4 +34,5 @@ public class ItemServiceImpl implements ItemService {
     public void deleteItem(long userId, long itemId) {
         repository.deleteByUserIdAndItemId(userId, itemId);
     }
+
 }

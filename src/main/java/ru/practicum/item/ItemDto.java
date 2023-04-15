@@ -1,30 +1,18 @@
 package ru.practicum.item;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-import java.util.HashSet;
+import java.io.Serializable;
 import java.util.Set;
 
-@Getter @Setter @ToString
-class ItemDto {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+class ItemDto implements Serializable {
 
     private Long id;
     private Long userId;
     private String url;
-    private Set<String> tags = new HashSet<>();
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ItemDto)) return false;
-        return id != null && id.equals(((ItemDto) o).getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
+    private Set<String> tags;
 
 }
