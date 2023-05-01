@@ -26,7 +26,7 @@ public class QItemNote extends EntityPathBase<ItemNote> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final ru.practicum.item.QItem item;
+    public final ru.practicum.item.model.QItem item;
 
     public final StringPath text = createString("text");
 
@@ -48,7 +48,7 @@ public class QItemNote extends EntityPathBase<ItemNote> {
 
     public QItemNote(Class<? extends ItemNote> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.item = inits.isInitialized("item") ? new ru.practicum.item.QItem(forProperty("item"), inits.get("item")) : null;
+        this.item = inits.isInitialized("item") ? new ru.practicum.item.model.QItem(forProperty("item"), inits.get("item")) : null;
     }
 
 }

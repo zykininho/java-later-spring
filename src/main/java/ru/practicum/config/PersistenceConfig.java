@@ -16,11 +16,10 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableTransactionManagement // включает управление транзакциями и обработку соответствующих аннотаций
+@EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "ru.practicum")
 @PropertySource(value = "classpath:application.properties")
 public class PersistenceConfig {
-
     private final Environment environment;
 
     public PersistenceConfig(Environment environment) {
@@ -67,5 +66,6 @@ public class PersistenceConfig {
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
     }
+
 
 }
